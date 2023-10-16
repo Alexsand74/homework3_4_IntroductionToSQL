@@ -1,0 +1,54 @@
+GET http://localhost:8080/student/byAll
+###
+GET http://localhost:8080/student/byAge?age=20
+###
+PUT http://localhost:8080/student
+Content-Type: application/json
+
+{
+"id": 1,
+"name": "Был_Саша",
+"age": 20
+}
+###
+POST http://localhost:8080/student
+Content-Type: application/json
+
+{
+
+  "name": "Коля",
+  "age": 22
+}
+###
+GET http://localhost:8080/student/2
+###
+
+
+GET http://localhost:8080/faculty/byAll
+###
+GET http://localhost:8080/faculty/byColor?color=Желтый
+###
+PUT http://localhost:8080/faculty
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Главный Факультет",
+  "color": "Красный"
+}
+###
+POST http://localhost:8080/faculty
+Content-Type: application/json
+
+{
+
+  "name": "Биология",
+  "color": "Желтый"
+}
+###
+GET http://localhost:8080/faculty/2
+###
+GET http://localhost:8080/student/byAgeBetween?min=15&max=20
+###
+GET http://localhost:8080/faculty/byNameOrColor?name=ФизМат&color=зеленый
+###
