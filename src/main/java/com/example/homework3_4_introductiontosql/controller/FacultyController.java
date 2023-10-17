@@ -1,6 +1,7 @@
 package com.example.homework3_4_introductiontosql.controller;
 
 import com.example.homework3_4_introductiontosql.model.Faculty;
+import com.example.homework3_4_introductiontosql.model.Student;
 import com.example.homework3_4_introductiontosql.service.FacultyService;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,5 +52,10 @@ public class FacultyController {
             @RequestParam(required = false) String color
     ) {
         return service.filterByNameOrColor(name, color);
+    }
+    @GetMapping("/weReturnStudentsByTheNameOfTheFaculty")
+    public Collection<Student> weReturnStudentsByTheNameOfTheFaculty(
+            @RequestParam String name) {
+        return service.returnStudentsByNameOfFaculty(name);
     }
 }

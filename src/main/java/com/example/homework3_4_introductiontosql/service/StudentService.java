@@ -1,5 +1,6 @@
 package com.example.homework3_4_introductiontosql.service;
 
+import com.example.homework3_4_introductiontosql.model.Faculty;
 import com.example.homework3_4_introductiontosql.model.Student;
 import com.example.homework3_4_introductiontosql.repository.StudentRepository;
 import org.springframework.stereotype.Service;
@@ -48,9 +49,14 @@ public class StudentService {
 
     public Collection<Student> filterByAgeBetween(int min, int max) {
         return repository.findAllByAgeBetween(min, max);
-//        studentRepository.findById(studentId)
-//                .map(Student::getFaculty)
-//                .map(facultyMapper::toDto)
-//                .orElse(null);
     }
+
+    public Student returnByFaculty(long id) {
+        var studentTemporary = repository.findById(id).orElse(null);
+        if (studentTemporary != null) {
+            repository.findById(id).get();
+        }
+        return studentTemporary;
+    }
+
 }

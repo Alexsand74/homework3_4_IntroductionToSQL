@@ -1,5 +1,6 @@
 package com.example.homework3_4_introductiontosql.repository;
 
+import com.example.homework3_4_introductiontosql.model.Faculty;
 import com.example.homework3_4_introductiontosql.model.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 

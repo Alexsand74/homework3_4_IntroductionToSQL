@@ -1,10 +1,13 @@
 package com.example.homework3_4_introductiontosql.service;
 
 import com.example.homework3_4_introductiontosql.model.Faculty;
+import com.example.homework3_4_introductiontosql.model.Student;
 import com.example.homework3_4_introductiontosql.repository.FacultyRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
+
 @Service
 public class FacultyService {
     private final FacultyRepository repository;
@@ -46,5 +49,11 @@ public class FacultyService {
 
     public Collection<Faculty> filterByNameOrColor(String name, String color) {
         return repository.findAllByNameOrColorIgnoreCase(name,color);
+    }
+
+    public Collection<Student> returnStudentsByNameOfFaculty(String name) {
+        Faculty faculty = repository.findFirstByNameIgnoreCase(name);
+        Collection<Student> allById = repository.findAllById(faculty.getId());
+        return allById;
     }
 }
