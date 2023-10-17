@@ -1,5 +1,6 @@
 package com.example.homework3_4_introductiontosql.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Collection;
@@ -12,7 +13,7 @@ public class Faculty {
     private Long id;
     private String name;
     private String color;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "faculty")
     private Collection <Student> students;
     public Long getId() {

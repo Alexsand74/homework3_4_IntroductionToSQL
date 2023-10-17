@@ -1,5 +1,6 @@
 package com.example.homework3_4_introductiontosql.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -14,7 +15,6 @@ public class Student {
     @ManyToOne
     @JoinColumn(name = "faculty_id")
     private Faculty faculty;
-
     public Faculty getFaculty() {
         return faculty;
     }
