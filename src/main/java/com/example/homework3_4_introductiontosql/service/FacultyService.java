@@ -1,5 +1,6 @@
 package com.example.homework3_4_introductiontosql.service;
 
+import com.example.homework3_4_introductiontosql.exception.FacultyNotFoundException;
 import com.example.homework3_4_introductiontosql.model.Faculty;
 import com.example.homework3_4_introductiontosql.model.Student;
 import com.example.homework3_4_introductiontosql.repository.FacultyRepository;
@@ -53,7 +54,8 @@ public class FacultyService {
 
     public Collection<Student> returnStudentsByNameOfFaculty(String name) {
         Faculty faculty = repository.findFirstByNameIgnoreCase(name);
-        Collection<Student> allById = repository.findAllById(faculty.getId());
+        if (faculty == null) { throw new FacultyNotFoundException();}
+        Collection<Student> allById = repository.findAllStudentById(faculty.getId());
         return allById;
     }
 }
