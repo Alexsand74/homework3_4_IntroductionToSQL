@@ -53,9 +53,9 @@ public class FacultyController {
     ) {
         return service.filterByNameOrColor(name, color);
     }
-    @GetMapping("/weReturnStudentsByTheNameOfTheFaculty")
+    @GetMapping("{name}/students")
     public Collection<Student> weReturnStudentsByTheNameOfTheFaculty(
-            @RequestParam String name) {
+            @PathVariable String name) {
         return service.returnStudentsByNameOfFaculty(name);
     }
 }

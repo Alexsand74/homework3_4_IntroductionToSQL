@@ -53,9 +53,8 @@ public class FacultyService {
     }
 
     public Collection<Student> returnStudentsByNameOfFaculty(String name) {
-        Faculty faculty = repository.findFirstByNameIgnoreCase(name);
+         Faculty faculty = repository.findFirstByNameIgnoreCase(name);
         if (faculty == null) { throw new FacultyNotFoundException();}
-        Collection<Student> allById = repository.findAllStudentById(faculty.getId());
-        return allById;
+        return repository.findAllStudentById(faculty.getId());
     }
 }

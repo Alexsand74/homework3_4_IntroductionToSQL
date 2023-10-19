@@ -1,5 +1,6 @@
 package com.example.homework3_4_introductiontosql.service;
 
+import com.example.homework3_4_introductiontosql.exception.StudentNotFoundException;
 import com.example.homework3_4_introductiontosql.model.Faculty;
 import com.example.homework3_4_introductiontosql.model.Student;
 import com.example.homework3_4_introductiontosql.repository.StudentRepository;
@@ -51,12 +52,9 @@ public class StudentService {
         return repository.findAllByAgeBetween(min, max);
     }
 
-    public Student returnByFaculty(long id) {
-        var studentTemporary = repository.findById(id).orElse(null);
-        if (studentTemporary != null) {
-            repository.findById(id).get();
-        }
-        return studentTemporary;
+    public Faculty returnByFaculty(long id) {
+        var studentTemporary = repository.findById(id).orElseThrow(
+                () -> new StudentNotFoundException ());
+        return studentTemporary.getFaculty();
     }
-
 }
