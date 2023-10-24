@@ -3,7 +3,6 @@ package com.example.homework3_4_introductiontosql.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.util.Objects;
 @Entity
 public class Student {
     @Id
@@ -11,6 +10,7 @@ public class Student {
     private Long id;
     private String name;
     private int age;
+
 
     @ManyToOne
     @JoinColumn(name = "faculty_id")

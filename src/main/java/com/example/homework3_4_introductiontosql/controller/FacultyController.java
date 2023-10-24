@@ -53,9 +53,13 @@ public class FacultyController {
     ) {
         return service.filterByNameOrColor(name, color);
     }
-    @GetMapping("{name}/students")
+    @GetMapping("{name}/studentsOfFaculty")
     public Collection<Student> weReturnStudentsByTheNameOfTheFaculty(
             @PathVariable String name) {
         return service.returnStudentsByNameOfFaculty(name);
+    }
+    @GetMapping("/{facultyId}/students")
+    public Collection<Student> facultyByStudent(@PathVariable long facultyId) {
+        return service.get(facultyId).getStudents();
     }
 }

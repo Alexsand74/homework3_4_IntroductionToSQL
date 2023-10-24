@@ -7,54 +7,50 @@ import com.example.homework3_4_introductiontosql.repository.FacultyRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.List;
 
 @Service
 public class FacultyService {
-    private final FacultyRepository repository;
-    public FacultyService(FacultyRepository repository) {
-        this.repository = repository;
+    private final FacultyRepository facultyRepository;
+    public FacultyService(FacultyRepository facultyRepository) {
+        this.facultyRepository = facultyRepository;
     }
 
     public Faculty add(Faculty faculty) {
-      return repository.save(faculty);
+      return facultyRepository.save(faculty);
     }
 
     public Faculty get(long id) {
-      return repository.findById(id).orElse(null);
+      return facultyRepository.findById(id).orElse(null);
     }
 
     public Faculty remove(long id) {
-        var facultyTemporary = repository.findById(id).orElse(null);
+        var facultyTemporary = facultyRepository.findById(id).orElse(null);
         if (facultyTemporary != null) {
-            repository.delete(facultyTemporary);
+            facultyRepository.delete(facultyTemporary);
         }
           return facultyTemporary;
     }
 
     public Faculty update(Faculty faculty) {
-        var facultyTemporary = repository.findById(faculty.getId()).orElse(null);
-        if (facultyTemporary != null) {
-            repository.save(faculty);;
-        }
+        facultyRepository.findById(faculty.getId()).ifPresent(facultyTemporary -> facultyRepository.save(faculty));
         return faculty;
     }
 
     public Collection<Faculty> filterByColor(String color) {
-        return  repository.findFacultiesByColor(color);
+        return  facultyRepository.findFacultiesByColor(color);
     }
 
     public Collection<Faculty> returnAll() {
-        return repository.findAllBy();
+        return facultyRepository.findAllBy();
     }
 
     public Collection<Faculty> filterByNameOrColor(String name, String color) {
-        return repository.findAllByNameOrColorIgnoreCase(name,color);
+        return facultyRepository.findAllByNameOrColorIgnoreCase(name,color);
     }
 
     public Collection<Student> returnStudentsByNameOfFaculty(String name) {
-         Faculty faculty = repository.findFirstByNameIgnoreCase(name);
-        if (faculty == null) { throw new FacultyNotFoundException();}
-        return repository.findAllStudentById(faculty.getId());
+       var faculty = facultyRepository.findFirstByNameIgnoreCase(name);
+    if (faculty == null) { throw new FacultyNotFoundException();}
+        return faculty.getStudents();
     }
 }

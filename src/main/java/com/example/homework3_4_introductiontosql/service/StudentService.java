@@ -1,59 +1,78 @@
 package com.example.homework3_4_introductiontosql.service;
 
 import com.example.homework3_4_introductiontosql.exception.StudentNotFoundException;
+import com.example.homework3_4_introductiontosql.model.Avatar;
 import com.example.homework3_4_introductiontosql.model.Faculty;
 import com.example.homework3_4_introductiontosql.model.Student;
+//import com.example.homework3_4_introductiontosql.repository.AvatarRepository;
 import com.example.homework3_4_introductiontosql.repository.StudentRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Collection;
+
+import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
 @Service
 public class StudentService {
-    private final StudentRepository repository;
-    public StudentService(StudentRepository repository) {
-        this.repository = repository;
+    private final StudentRepository studentRepository;
+     public StudentService(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+         }
+    public Student findStudent(long id) {
+        return studentRepository.findById(id).orElseThrow();
     }
 
+
+
+
+    private String getExtension(String fileName) {
+        return fileName.substring(fileName.lastIndexOf(".") + 1);
+    }
     public Student add(Student student) {
-        return repository.save(student);
+        student.setId(null);
+        return studentRepository.save(student);
     }
 
     public Student get(long id) {
-        return repository.findById(id).orElse(null);
+        return studentRepository.findById(id).orElse(null);
     }
 
     public Student remove(long id) {
-        var studentTemporary = repository.findById(id).orElse(null);
+        var studentTemporary = studentRepository.findById(id).orElse(null);
         if (studentTemporary != null) {
-            repository.delete(studentTemporary);
+            studentRepository.delete(studentTemporary);
         }
         return studentTemporary;
     }
 
     public Student update(Student student) {
-        var studentTemporary = repository.findById(student.getId()).orElse(null);
+        var studentTemporary = studentRepository.findById(student.getId()).orElse(null);
         if (studentTemporary != null) {
-            repository.save(student);;
+            studentRepository.save(student);;
         }
         return student;
     }
 
     public Collection<Student> filterByAge(int age) {
-        return  repository.findAllByAge(age);
+        return  studentRepository.findAllByAge(age);
     }
 
     public Collection<Student> returnAll() {
-        return repository.findAllBy();
+        return studentRepository.findAllBy();
     }
 
 
     public Collection<Student> filterByAgeBetween(int min, int max) {
-        return repository.findAllByAgeBetween(min, max);
+        return studentRepository.findAllByAgeBetween(min, max);
     }
 
     public Faculty returnByFaculty(long id) {
-        var studentTemporary = repository.findById(id).orElseThrow(
+        var studentTemporary = studentRepository.findById(id).orElseThrow(
                 () -> new StudentNotFoundException ());
         return studentTemporary.getFaculty();
     }

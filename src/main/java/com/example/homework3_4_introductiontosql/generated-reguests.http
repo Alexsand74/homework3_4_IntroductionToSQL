@@ -16,7 +16,7 @@ Content-Type: application/json
 
 {
 
-  "name": "Коля",
+  "name": "Слава",
   "age": 22
 }
 ###
@@ -31,7 +31,7 @@ Content-Type: application/json
 
 {
   "id": 1,
-  "name": "История",
+  "name": "Философия",
   "color": "Красный"
 }
 ###
@@ -39,17 +39,19 @@ POST http://localhost:8080/faculty
 Content-Type: application/json
 
 {
-  "name": "Биология",
+  "name": "Физика",
   "color": "Желтый"
 }
 ###
-GET http://localhost:8080/faculty/2
+GET http://localhost:8080/faculty/4
 ###
 GET http://localhost:8080/student/byAgeBetween?min=15&max=20
 ###
-GET http://localhost:8080/faculty/byNameOrColor?name=ФизМат&color=зеленый
+GET http://localhost:8080/faculty/byNameOrColor?name=ФизМат&color=желтый
 ###
-GET http://localhost:8080/student/byFaculty/3
+GET http://localhost:8080/student/byFaculty/4
 ###
-GET http://localhost:8080/faculty/Biology/students
+GET http://localhost:8080/faculty/Физика/studentsOfFaculty
+###
+GET http://localhost:8080/faculty/3/students
 ###
